@@ -39,6 +39,7 @@ const setSelectedValue = (value: string) => {
         'inline-flex justify-between w-full rounded-lg border px-3 py-2 bg-white gap-3 text-sm font-normal hover:bg-gray-50 cursor-pointer',
         isOpen ? 'border-txt-blue' : 'border-border-gray ',
         props.selectedValue ? 'text-txt-black' : 'text-disable-gray',
+        props.error && !selectedValue && 'border-red-500',
       ]"
     >
       {{ props.selectedValue ? props.selectedValue : 'Select' }}

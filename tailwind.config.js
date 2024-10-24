@@ -14,6 +14,7 @@ export default {
         'disable-gray': '#B6B7B9',
         'border-gray': '#D9DADD',
         'btn-orange': '#DA753C',
+        'bg-gray': '#F2F3F6',
       },
     },
   },

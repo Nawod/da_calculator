@@ -6,10 +6,12 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import type { ShortestPathData } from '@/shared/models/nodes'
 
 export const useCalculatorStore = defineStore('calculatorStore', () => {
   const fromNode = ref()
   const toNode = ref()
+  const pathData = ref<ShortestPathData | undefined>(undefined)
 
   /**
    * set from node value
@@ -33,7 +35,24 @@ export const useCalculatorStore = defineStore('calculatorStore', () => {
   const clearNodes = () => {
     toNode.value = undefined
     fromNode.value = undefined
+    pathData.value = undefined
   }
 
-  return { fromNode, toNode, setFromNode, setToNode, clearNodes }
+  /**
+   * set shortest path data
+   * @param value
+   */
+  const setPathData = (value: ShortestPathData) => {
+    pathData.value = value
+  }
+
+  return {
+    fromNode,
+    toNode,
+    setFromNode,
+    setToNode,
+    clearNodes,
+    pathData,
+    setPathData,
+  }
 })
