@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DCalculator from './components/DCalculator.vue'
+import DCalculator from './components/DCalculator/DCalculator.vue'
 </script>
 
 <template>

@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { useCalculatorStore } from '@/stores/calculatorSlice'
-import { onMounted, ref, watch } from 'vue'
-import { useToast } from 'vue-toastification'
-
 /**
  * @Component ResultView
  * @description purpose of this component is to visualize the result
  * @author Nawod Madhuvantha
  */
+import { useCalculatorStore } from '@/stores/calculatorSlice'
+import { onMounted, watch } from 'vue'
+import { useToast } from 'vue-toastification'
 
 const calculatorStates = useCalculatorStore()
-const pathData = ref(calculatorStates.pathData)
 const toast = useToast()
 
 /**
@@ -23,7 +21,7 @@ const sendPathData = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ shortestPathData: pathData.value }),
+      body: JSON.stringify({ shortestPathData: calculatorStates.pathData }),
     })
 
     if (!response.ok) {
@@ -61,10 +59,10 @@ watch(
       <p class="text-txt-black font-normal pb-4">
         From Node Name = "{{ calculatorStates.fromNode }}", To Node Name = "{{
           calculatorStates.toNode
-        }}" : {{ pathData?.nodeNames.join(',') }}
+        }}" : {{ calculatorStates.pathData?.nodeNames.join(',') }}
       </p>
       <p class="text-txt-black font-normal">
-        Total Distance : {{ pathData?.distance }}
+        Total Distance : {{ calculatorStates.pathData?.distance }}
       </p>
     </div>
   </div>
