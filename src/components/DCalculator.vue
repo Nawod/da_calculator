@@ -85,17 +85,17 @@ const calculateShortestPath = () => {
 
   calculatorStates.setPathData({ nodeNames: path, distance: distances[toNode] })
   inputError.value = false
-  console.log(
-    'mames',
-    path,
-    'distance',
-    distances[toNode],
-    distances,
-    'parent',
-    parentNodes,
-    'unvisted',
-    restNodes,
-  )
+  // console.log(
+  //   'mames',
+  //   path,
+  //   'distance',
+  //   distances[toNode],
+  //   distances,
+  //   'parent',
+  //   parentNodes,
+  //   'unvisted',
+  //   restNodes,
+  // )
 }
 
 /**
@@ -153,7 +153,7 @@ const clearButtonAction = () => {
       :class="[
         'w-1/2',
         calculatorStates.pathData
-          ? 'bg-bg-gray'
+          ? 'bg-bg-gray rounded-tr-lg rounded-br-lg'
           : 'flex items-center justify-center',
       ]"
     >

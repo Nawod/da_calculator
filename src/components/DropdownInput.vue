@@ -52,7 +52,7 @@ const setSelectedValue = (value: string) => {
 
     <div
       v-if="isOpen"
-      class="origin-top-right absolute z-10 right-0 mt-2 w-full rounded-md shadow-lg bg-white"
+      class="origin-top-right absolute z-10 right-0 mt-2 w-full rounded-md shadow-lg bg-white h-48 overflow-y-auto"
     >
       <div
         class="py-1"

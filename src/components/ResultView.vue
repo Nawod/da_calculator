@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useCalculatorStore } from '@/stores/calculatorSlice'
+import { onMounted, ref, watch } from 'vue'
+import { useToast } from 'vue-toastification'
 
 /**
  * @Component ResultView
@@ -8,6 +10,48 @@ import { useCalculatorStore } from '@/stores/calculatorSlice'
  */
 
 const calculatorStates = useCalculatorStore()
+const pathData = ref(calculatorStates.pathData)
+const toast = useToast()
+
+/**
+ * make post request to http echo endpoint
+ */
+const sendPathData = async () => {
+  try {
+    const response = await fetch('https://echo.free.beeceptor.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ shortestPathData: pathData.value }),
+    })
+
+    if (!response.ok) {
+      toast.error(`Network response was not ok! - ${response.status}`)
+    } else {
+      toast.success(`Http request successfully echoed! - ${response.status}`)
+    }
+  } catch (error) {
+    toast.error(`Http echo request error! - ${error}`)
+  }
+}
+
+onMounted(() => {
+  sendPathData()
+})
+
+/**
+ * trigger sendPathData function when the path calculation done
+ */
+watch(
+  () => calculatorStates.pathData,
+  newValue => {
+    if (newValue) {
+      sendPathData()
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
@@ -17,10 +61,10 @@ const calculatorStates = useCalculatorStore()
       <p class="text-txt-black font-normal pb-4">
         From Node Name = "{{ calculatorStates.fromNode }}", To Node Name = "{{
           calculatorStates.toNode
-        }}" : {{ calculatorStates.pathData?.nodeNames.join(',') }}
+        }}" : {{ pathData?.nodeNames.join(',') }}
       </p>
       <p class="text-txt-black font-normal">
-        Total Distance : {{ calculatorStates.pathData?.distance }}
+        Total Distance : {{ pathData?.distance }}
       </p>
     </div>
   </div>
